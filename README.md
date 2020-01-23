@@ -8,3 +8,6 @@ Technologies:
     - redis 
 
 
+Run the project:
+$ cd project
+$ node app
