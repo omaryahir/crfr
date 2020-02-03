@@ -1,13 +1,5 @@
 # crfr
 crfr - prototype
 
-Technologies:
-- node
-- express 
-- hydra (framework for microservices)
-    - redis 
+Stack: Node / Express / Angular / Kong / Postgres
 
-
-Run the project:
-$ cd project
-$ node app

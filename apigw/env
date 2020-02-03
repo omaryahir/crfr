@@ -1,0 +1,4 @@
+# This is a file configuration and this has to be renamed as .env
+
+PG_USER=fr_kong
+PG_PWD=fr_pwd
