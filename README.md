@@ -2,12 +2,13 @@
 crfr - prototype
 
 Technologies:
-- node
-- express 
-- hydra (framework for microservices)
-    - redis 
+- React
+- Flask
+- PostgreSQL
+- Docker Compose 
 
 
-Run the project:
-$ cd project
-$ node app
+Run project:
+1. Navigate to docker
+1. Run this command:
+    $ docker-compose up 

@@ -1,0 +1,24 @@
+version: '3.1'    
+
+networks:
+  fr-net-frontend:
+  fr-net-backend:
+
+services:
+  fr_auth_db:
+    image: postgres:12.2    
+    environment:
+      POSTGRES_DB: "fr_auth_db"
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_USER: ${PG_USER}
+    ports:
+      - "5433:5432"
+    networks:
+      - fr-net-backend
+    restart: on-failure
+    volumes:
+      - ./fr_auth_db/postgres-data:/var/lib/postgresql/data
+      - ./fr_auth_db/init.sql:/docker-entrypoint-initdb.d/init.sql 
+
+volumes:
+  postgres-data:
