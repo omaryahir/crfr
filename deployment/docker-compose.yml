@@ -10,7 +10,7 @@ services:
     networks:
       - fr-net-backend
     retart: always
-    build: ./back
+    build: ../back
     expose:
       - "8000"
     links:
@@ -47,8 +47,8 @@ services:
       - fr-net-backend
     restart: on-failure
     volumes:
-      - ./fr_auth_db/postgres-data:/var/lib/postgresql/data
-      - ./fr_auth_db/init.sql:/docker-entrypoint-initdb.d/init.sql 
+      - ../db/postgres-data:/var/lib/postgresql/data
+      - ../db/init.sql:/docker-entrypoint-initdb.d/init.sql 
 
 volumes:
   postgres-data:
