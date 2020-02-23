@@ -6,3 +6,7 @@ package-lock.json
 
 # Postgres Data Test
 postgres-data/
+
+# Python
+env/ # environment folder 
+.pyc
