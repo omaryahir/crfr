@@ -1,3 +1,4 @@
 FROM nginx
-RUN rm /etc/nginx/sites-enabled/default
-COPY sites-enabled /etc/nginx/sites-enabled
+
+RUN mkdir /etc/nginx/sites-enabled/
+COPY sites-enabled/flask_nginx /etc/nginx/sites-enabled/default

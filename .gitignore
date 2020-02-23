@@ -8,5 +8,6 @@ package-lock.json
 postgres-data/
 
 # Python
-env/ # environment folder 
+env/
 .pyc
+__pycache__/

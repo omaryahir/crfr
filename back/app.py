@@ -3,16 +3,13 @@
 
 from flask import Flask
 from flask import request
-from flask_sqlalchemy import SQLAlchemy 
-from config import BaseConfig 
-
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET', 'POST']
+@app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
-        return "Hello World"
+        return "Hello World FRAP2!"
 
 if __name__ == '__main__':
     app.run()

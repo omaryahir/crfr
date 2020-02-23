@@ -25,5 +25,17 @@ Notes:
     `\d fr_auth_db.users` 
 - Remember to include the schema in the queries: 
     `select * from fr_auth_db.users`
-- 
+
+
+Debug:
+If you want to load the flask project for debug purposes you can:
+1. Navigate to back folder.
+1. Run this command:
+    `$ python3 -m venv env`
+1. Install the dependencies:
+    `$ source env/bin/activate`
+    `$ pip install -r requirements.txt`
+1. Run the project 
+    `$ python app.py`
+
     

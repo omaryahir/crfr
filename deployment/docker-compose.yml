@@ -7,19 +7,24 @@ networks:
 services:
 
   fr_backend:
+    restart: always
     networks:
       - fr-net-backend
-    retart: always
     build: ../back
     expose:
       - "8000"
     links:
       - fr_auth_db
     volumes:
+      - .:/back
       - web-data:/usr/src/app/static
     env_file:
       - .env
-    command: /usr/local/bin/gunicorn -w 2 -b :8000 app:app 
+    #command: "gunicorn -w 2 -b :8000 app:app"
+    #command: 
+    #  - "source env/bin/activate"
+    #  - "gunicorn -w 2 -b :8000 app:app"
+    #command: "ls -l"
 
   nginx:
     networks:
@@ -27,7 +32,7 @@ services:
     restart: always
     build: ./nginx 
     ports:
-      - "${BACKEND_PORT:80}:80"
+      - "${BACKEND_PORT}:80"
     volumes:
       - .:/www/static
       - web-data:/usr/src/app/static
@@ -52,3 +57,4 @@ services:
 
 volumes:
   postgres-data:
+  web-data:
