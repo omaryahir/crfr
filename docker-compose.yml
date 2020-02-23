@@ -1,0 +1,54 @@
+version: '3.1'    
+
+networks:
+  fr-net-frontend:
+  fr-net-backend:
+
+services:
+
+  fr_backend:
+    networks:
+      - fr-net-backend
+    retart: always
+    build: ./back
+    expose:
+      - "8000"
+    links:
+      - fr_auth_db
+    volumes:
+      - web-data:/usr/src/app/static
+    env_file:
+      - .env
+    command: /usr/local/bin/gunicorn -w 2 -b :8000 app:app 
+
+  nginx:
+    networks:
+      - fr-net-backend    
+    restart: always
+    build: ./nginx 
+    ports:
+      - "${BACKEND_PORT:80}:80"
+    volumes:
+      - .:/www/static
+      - web-data:/usr/src/app/static
+    links:
+      - fr_backend:fr_backend
+    
+
+  fr_auth_db:
+    image: postgres:12.2    
+    environment:
+      POSTGRES_DB: "fr_auth_db"
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+    ports:
+      - "5433:5432"
+    networks:
+      - fr-net-backend
+    restart: on-failure
+    volumes:
+      - ./fr_auth_db/postgres-data:/var/lib/postgresql/data
+      - ./fr_auth_db/init.sql:/docker-entrypoint-initdb.d/init.sql 
+
+volumes:
+  postgres-data:
