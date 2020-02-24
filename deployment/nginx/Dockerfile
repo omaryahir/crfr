@@ -1,4 +1,4 @@
-FROM nginx
+FROM tutum/nginx
 
-RUN mkdir /etc/nginx/sites-enabled/
-COPY sites-enabled/flask_nginx /etc/nginx/sites-enabled/default
+#RUN mkdir /etc/nginx/sites-enabled/
+COPY sites-enabled/ /etc/nginx/sites-enabled/

@@ -11,7 +11,7 @@ Technologies:
 Run project:
 1. Navigate to docker
 1. Run this command:
-    `$ docker-compose up`
+    `$ docker-compose up --build`
 
 
 Connect to the test database in your local using psql:

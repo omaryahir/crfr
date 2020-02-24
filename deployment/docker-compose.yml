@@ -15,16 +15,9 @@ services:
       - "8000"
     links:
       - fr_auth_db
-    volumes:
-      - .:/back
-      - web-data:/usr/src/app/static
     env_file:
       - .env
-    #command: "gunicorn -w 2 -b :8000 app:app"
-    #command: 
-    #  - "source env/bin/activate"
-    #  - "gunicorn -w 2 -b :8000 app:app"
-    #command: "ls -l"
+    command: "/usr/local/bin/gunicorn -w 2 -b :8000 --chdir back app:app"
 
   nginx:
     networks:
@@ -34,8 +27,7 @@ services:
     ports:
       - "${BACKEND_PORT}:80"
     volumes:
-      - .:/www/static
-      - web-data:/usr/src/app/static
+      - ../static/:/www/static
     links:
       - fr_backend:fr_backend
     
@@ -52,9 +44,7 @@ services:
       - fr-net-backend
     restart: on-failure
     volumes:
-      - ../db/postgres-data:/var/lib/postgresql/data
       - ../db/init.sql:/docker-entrypoint-initdb.d/init.sql 
+      # Next Line for specific data location 
+      #- ./volumes/db/postgres-data:/var/lib/postgresql/data
 
-volumes:
-  postgres-data:
-  web-data:
