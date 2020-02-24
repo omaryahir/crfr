@@ -2,14 +2,20 @@
 crfr - prototype
 
 Technologies:
-- React
 - Flask
 - PostgreSQL
 - Docker Compose 
+- React
 
 
 Run project:
-1. Navigate to docker
+1. Navigate to deployment
+1. Create .env file inside deployment folder with this content:
+    ```
+    PG_USER=admin
+    PG_PASSWORD=123
+    BACKEND_PORT=8080
+    ```
 1. Run this command:
     `$ docker-compose up --build`
 
