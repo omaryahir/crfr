@@ -18,6 +18,9 @@ crfr - prototype
     ```
 1. Run this command:
     `$ docker-compose up --build`
+1. Wait a couple of minutes :) 
+1. Open your web browser and use this url:
+    http://127.0.0.1:8080
 
 
 ## Connect to the test database in your local using psql:
