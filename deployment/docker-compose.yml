@@ -1,7 +1,7 @@
 version: '3.1'    
 
 networks:
-  fr-net-frontend:
+  #fr-net-frontend:
   fr-net-backend:
 
 services:
@@ -15,6 +15,8 @@ services:
       - "8000"
     links:
       - fr_auth_db
+    volumes:
+      - ../back:/back
     env_file:
       - .env
     command: "/usr/local/bin/gunicorn -w 2 -b :8000 --chdir back app:app"
@@ -47,5 +49,5 @@ services:
     volumes:
       - ../db/init.sql:/docker-entrypoint-initdb.d/init.sql 
       # Next Line for specific data location 
-      #- ./volumes/db/postgres-data:/var/lib/postgresql/data
+      #- ./db/postgres-data:/var/lib/postgresql/data
 
