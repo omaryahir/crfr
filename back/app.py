@@ -1,9 +1,10 @@
-
-# app.py 
-
 from flask import Flask, jsonify, request, jsonify
+from flask_sqlalchemy import SQLAlchemy 
+from config import BaseConfig 
 
 app = Flask(__name__)
+app.config.from_object(BaseConfig)
+db = SQLAlchemy(app)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
