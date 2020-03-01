@@ -46,4 +46,7 @@ If you want to load the flask project for debug purposes you can:
 1. Run the project 
     `$ python app.py`
 
+If you are interested debuging with VSCode that is really interesting check this website:
+https://code.visualstudio.com/docs/python/tutorial-flask
+
     

@@ -8,7 +8,6 @@ from flask_cors import CORS
 from flask_bcrypt import Bcrypt 
 from flask_jwt_extended import JWTManager, create_access_token
 
-
 app = Flask(__name__)
 app.config.from_object(DBConfig)
 db = SQLAlchemy(app)
@@ -22,15 +21,16 @@ def index():
     if request.method == 'GET':
         return "Hello World with Flask + Gunicorn + Docker!"
 
-
 @app.route('/users/register', methods=['POST'])
 def register():
     cur = db.engine.raw_connection().cursor()
-    print(cur)
-    first_name = request.get_json()['first_name']
-    last_name = request.get_json()['last_name']
-    username = request.get_json()['email']
-    password = bcrypt.generate_password_hash(request.get_json()['password']).decode('utf-8')
+
+    payload = request.get_json()
+
+    first_name = payload['first_name']
+    last_name = payload['last_name']
+    username = payload['username']
+    password = bcrypt.generate_password_hash(payload['password']).decode('utf-8')
     created = datetime.utcnow()
 
     cur.execute("INSERT INTO fr_auth_db.users (first_name, last_name, username, password, created) VALUES (" +
@@ -57,24 +57,31 @@ def register():
 def login():
     cur = db.engine.raw_connection().cursor()
 
-    email = request.get_json()['email']
-    password = request.get_json()['password']
+    payload = request.get_json()
+
+    username = payload['username']
+    password = payload['password']
     result = "" 
 
-    cur.execute("SELECT * FROM users where email='"+str(email)+"'")
-    rs = cur.fetchone()
+    sql = """
+    SELECT first_name, last_name, username, password FROM fr_auth_db.users where username='%s'
+    """ % username
+    cur.execute(sql)
+    rs = cur.fetchone() 
 
-    if bcrypt.check_password_hash(rs['password'], password):
+    # 0 - first_name, 1 - last_name, 2 - username, 3 - password 
+    if bcrypt.check_password_hash(rs[3], password):
         access_token = create_access_token(identity={
-            'first_name': rs['first_name'],
-            'last_name': rs['last_name'],
-            'email': rs['email'],
+            'first_name': rs[0],
+            'last_name': rs[1],
+            'username': rs[2],
         })
         result = jsonify({"token": access_token})
     else:
-        result = jsonify({'error', 'Invalid username and password'})
+        result = jsonify({'error': 'Invalid username and password'})
 
     return result 
+
 
 if __name__ == '__main__':
     app.run(debug=True)

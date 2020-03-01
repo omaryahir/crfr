@@ -13,3 +13,6 @@ env/
 .pyc
 __pycache__/
 local_settings.py
+
+# VSCode
+.vscode

@@ -1,7 +1,7 @@
 from local_settings import CRFR
 
 class DBConfig(object):
-    SECRET_KEY = CRFR['SECRET_KEY']
+    JWT_SECRET_KEY = CRFR['SECRET_KEY']
     DEBUG = CRFR['DEBUG']
     DB_NAME = CRFR['DB_NAME']
     DB_USER = CRFR['DB_USER']
