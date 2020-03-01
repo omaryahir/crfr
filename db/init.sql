@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS "fr_auth_db"."users" (
     "first_name" text,
     "last_name" text,
     "username" text NOT NULL,
-    "password" text,
+    "password" text NOT NULL,
     "created" timestamp DEFAULT current_timestamp, 
     PRIMARY KEY ("id")
 );

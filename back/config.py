@@ -1,6 +1,6 @@
 from local_settings import CRFR
 
-class BaseConfig(object):
+class DBConfig(object):
     SECRET_KEY = CRFR['SECRET_KEY']
     DEBUG = CRFR['DEBUG']
     DB_NAME = CRFR['DB_NAME']
@@ -11,3 +11,4 @@ class BaseConfig(object):
     SQLALCHEMY_DATABASE_URI = 'postgresql://{0}:{1}@{2}:{3}/{4}'.format(
         DB_USER, DB_PASS, DB_SERVICE, DB_PORT, DB_NAME
     )
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
