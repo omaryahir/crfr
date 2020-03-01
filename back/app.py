@@ -57,28 +57,29 @@ def register():
 def login():
     cur = db.engine.raw_connection().cursor()
 
-    payload = request.get_json()
+    if request.authorization is not None: 
+        username = request.authorization['username']
+        password = request.authorization['password']
+        result = "" 
 
-    username = payload['username']
-    password = payload['password']
-    result = "" 
+        sql = """
+        SELECT first_name, last_name, username, password FROM fr_auth_db.users where username='%s'
+        """ % username
+        cur.execute(sql)
+        rs = cur.fetchone() 
 
-    sql = """
-    SELECT first_name, last_name, username, password FROM fr_auth_db.users where username='%s'
-    """ % username
-    cur.execute(sql)
-    rs = cur.fetchone() 
-
-    # 0 - first_name, 1 - last_name, 2 - username, 3 - password 
-    if bcrypt.check_password_hash(rs[3], password):
-        access_token = create_access_token(identity={
-            'first_name': rs[0],
-            'last_name': rs[1],
-            'username': rs[2],
-        })
-        result = jsonify({"token": access_token})
-    else:
-        result = jsonify({'error': 'Invalid username and password'})
+        # 0 - first_name, 1 - last_name, 2 - username, 3 - password 
+        if bcrypt.check_password_hash(rs[3], password):
+            access_token = create_access_token(identity={
+                'first_name': rs[0],
+                'last_name': rs[1],
+                'username': rs[2],
+            })
+            result = jsonify({"token": access_token})
+        else:
+            result = jsonify({'error': 'Invalid username and password'})
+    else: 
+        result = jsonify({'error': 'Headers must be via authorization section'})
 
     return result 
 

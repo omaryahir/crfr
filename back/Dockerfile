@@ -1,2 +1,3 @@
 FROM python:3.8.1
-RUN pip install -r /back/requirements.txt
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt

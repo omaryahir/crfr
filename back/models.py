@@ -12,6 +12,5 @@ class User (db.Model):
     password = db.Column(db.String, nullable=False)
     created = db.Column(db.DateTime)
 
-    def __init__(self, ):
-        self.text = text 
-        self.date_
+    def __init__(self, first_name):
+        self.first_name = firstname
