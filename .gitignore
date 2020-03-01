@@ -1,6 +1,6 @@
 node_modules/
 package-lock.json
-.docker-compose.yml.swp
+*.swp
 
 # Docker Passwords
 .env
@@ -12,3 +12,4 @@ postgres-data/
 env/
 .pyc
 __pycache__/
+local_settings.py
