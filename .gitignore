@@ -1,6 +1,8 @@
+*.swp
+
+# npm
 node_modules/
 package-lock.json
-*.swp
 
 # Docker Passwords
 .env

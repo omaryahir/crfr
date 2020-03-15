@@ -1,7 +1,7 @@
 # crfr
 crfr - prototype
 
-## Technologies:
+## Stack Tech:
 - Flask
 - PostgreSQL
 - Docker Compose 
@@ -49,4 +49,17 @@ If you want to load the flask project for debug purposes you can:
 If you are interested debuging with VSCode that is really interesting check this website:
 https://code.visualstudio.com/docs/python/tutorial-flask
 
-    
+
+## React App
+
+In order to work with the front end navigate to `front` folder and you will be able to use npm start. 
+
+Note: Consider this project has been made using
+```
+$ npm init react-app client
+$ npm i axios jwt-decode react-router-dom 
+```
+
+
+
+
