@@ -9,9 +9,9 @@ class Navbar extends Component {
         this.props.history.push(`/`)
     }
 
-    return (
+    render() {
         const loginRegLink = (
-            <ul className="navbar-nav">
+           <ul className="navbar-nav">
                 <li className="nav-item">
                     <Link className="nav-link" to="/login">Login</Link>
                 </li>
@@ -27,7 +27,7 @@ class Navbar extends Component {
                     <Link className="nav-link" to="/profile">User</Link>
                 </li>
                 <li className="nav-item">
-                    <a href="" onClick="{this.logOut.bind(this)}" className="nav-link">LogOut</a>
+                    <a href="" onClick={this.logOut.bind(this)} className="nav-link">LogOut</a>
                 </li>
             </ul>
         )
@@ -52,11 +52,12 @@ class Navbar extends Component {
                             </Link>
                         </li>
                     </ul>
+                    {localStorage.usertoken ? userLink : loginRegLink}
                 </div>
 
             </nav>
         ) 
-    )
+    }
 }
 
 export default withRouter(Navbar)

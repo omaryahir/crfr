@@ -1,41 +1,40 @@
 version: '3.1'    
 
 networks:
-  #fr-net-frontend:
-  fr-net-backend:
+  fr-net:
 
 services:
 
-  fr_backend:
+  gunicorn:
     restart: always
     networks:
-      - fr-net-backend
+      - fr-net
     expose:
       - "8000"
     links:
-      - fr_auth_db
+      - postgres
     volumes:
       - ../back:/back
     env_file:
       - .env
     build: ../back
-    command: "/usr/local/bin/gunicorn -w 2 -b :8000 --chdir back app:app"
+    command: "/usr/local/bin/gunicorn -w 2 --env SCRIPT_NAME=/api_v1 -b :8000 --chdir back app:app"
 
   nginx:
     image: nginx:1.16  
     networks:
-      - fr-net-backend     
+      - fr-net     
     restart: always
     volumes:
-      - ../static/:/www/static
+      - ../front/build:/front # Front-End React Project
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     ports:
-      - ${BACKEND_PORT}:80 
+      - ${WEB_PORT}:80
       #- 443:443
     links:
-      - fr_backend:fr_backend      
+      - gunicorn
 
-  fr_auth_db:
+  postgres:
     image: postgres:12.2    
     environment:
       POSTGRES_DB: "fr_auth_db"
@@ -44,7 +43,7 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - fr-net-backend
+      - fr-net
     restart: on-failure
     volumes:
       - ../db/init.sql:/docker-entrypoint-initdb.d/init.sql 
