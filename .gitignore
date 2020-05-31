@@ -1,2 +1,21 @@
+*.swp
+
+# npm
 node_modules/
 package-lock.json
+front/build/*
+
+# Docker Passwords
+.env
+
+# Postgres Data Test
+postgres-data/
+
+# Python
+env/
+.pyc
+__pycache__/
+local_settings.py
+
+# VSCode
+.vscode
