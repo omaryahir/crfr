@@ -57,6 +57,7 @@ def register():
 def login():
     cur = db.engine.raw_connection().cursor()
 
+    print("OK OK ")
     if request.authorization is not None: 
         username = request.authorization['username']
         password = request.authorization['password']
@@ -69,6 +70,7 @@ def login():
         rs = cur.fetchone() 
 
         # 0 - first_name, 1 - last_name, 2 - username, 3 - password 
+        print("SQL --> %s" % sql)
         if bcrypt.check_password_hash(rs[3], password):
             access_token = create_access_token(identity={
                 'first_name': rs[0],

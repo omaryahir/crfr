@@ -22,10 +22,9 @@ export const login = user => {
             username: user.email,
             password: user.password
         }
-        /*username: user.email,
-        password: user.password*/
     })
     .then (res => {
+        console.log(res.data)
         localStorage.setItem('usertoken', res.data)
         return res.data
     })
